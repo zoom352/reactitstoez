@@ -2,11 +2,11 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import { UpdateNewMessageBodyCreator, SendMessageCreator } from '../../Redux/state';
+import { UpdateNewMessageBodyCreator, SendMessageCreator } from '../../Redux/dialogs-reducer';
 
 const Dialogs = (props) => {
 
-    let state = props.Store.getElement().dialogsPage;
+    let state = props.dialogsPage;
 
     // take it in the props
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id} />);
@@ -17,13 +17,16 @@ const Dialogs = (props) => {
     // React create me link
 
     let onSendMessageClick = () => {
-        props.Store.dispatch(SendMessageCreator());
+        props.SendMessage();
     }
 
     let OnNewMessageChange = (e) => {
         let body = e.target.value;
-        props.Store.dispatch(UpdateNewMessageBodyCreator(body))
+        props.UpdateNewMessageBody(body);
     }
+
+
+    
 
     return (
         <div className={s.dialogs}>
@@ -39,5 +42,24 @@ const Dialogs = (props) => {
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+ // let onSendMessageClick = () => {
+    //     props.Store.dispatch(SendMessageCreator());
+    // }
+
+    // let OnNewMessageChange = (e) => {
+    //     let body = e.target.value;
+    //     props.Store.dispatch(UpdateNewMessageBodyCreator(body))
+    // }
+
+
 
 export default Dialogs;
