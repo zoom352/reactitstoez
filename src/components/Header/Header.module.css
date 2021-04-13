@@ -7,3 +7,12 @@
     width: 20px;
 }
 
+.item {
+    text-align: left;
+    color: white;
+}
+
+.item a {
+    color: white;
+}
+
