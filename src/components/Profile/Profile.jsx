@@ -2,8 +2,10 @@ import React from 'react';
 import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from './MyPosts/MyPostContainer';
+import { Redirect } from 'react-router';
 
 const Profile = (props) => {
+
 
     return (
         <div>

@@ -1,8 +1,7 @@
 import React from 'react';
 import s from './Users.module.css';
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import userPhoto from '../../assets/images/user.png';
-import axios from 'axios';
 import { usersAPI } from '../../Api/Api';
 
 
@@ -14,6 +13,8 @@ let Users = (props) => {
         pages.push(i);
     }
 
+
+  
     return (
         <div>
             <div>
@@ -32,25 +33,11 @@ let Users = (props) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => {
-                                   usersAPI.deleteUser(u.id)
-                                        .then(data => {
-                                            if (data.resultCode == 0) {
-                                                props.unfollow(u.id)
-                                            }
-                                        
-                                        });
-                                     }}>unfollow</button>
-                                : <button onClick={() => {
-                                    usersAPI.postUser(u.id)
-                                        .then(data => {
-                                            if (data.resultCode == 0) {
-                                                props.follow(u.id)
-                                            }
-                                        
-                                        });
+                                ? <button disabled={props.followinginprogress.some(id => id === u.id)} onClick={() => {
+                                    props.unfollow(u.id) }}>unfollow</button>
                                     
-                                }}>follow</button>}
+                                : <button disabled={props.followinginprogress.some(id => id === u.id)} onClick={() => {
+                                    props.follow(u.id) }}>follow</button>}
                         </div>
                     </span>
                     <span>
