@@ -4,6 +4,8 @@ import profilereducer from "./profile-reducer";
 import Usersreducer from "./users-reducer";
 import authReduser from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk';
+
+
 let reducers = combineReducers({
     
     profilePage: profilereducer,
