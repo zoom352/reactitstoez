@@ -4,6 +4,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { UpdateNewMessageBodyCreator, SendMessageCreator } from '../../Redux/dialogs-reducer';
 import { Redirect } from 'react-router';
+import { Field, reduxForm } from 'redux-form';
 
 const Dialogs = (props) => {
 
@@ -12,21 +13,16 @@ const Dialogs = (props) => {
     // take it in the props
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id} />);
     let messagesElements = state.messages.map(m => <Message message={m.message} />);
-    let NewMessageBody = state.NewMessageBody;
+    // let NewMessageBody = state.NewMessageBody;
 
-    // let newmessage = React.createRef();
-    // React create me link
+  
 
-    let onSendMessageClick = () => {
-        props.SendMessage();
+
+    let addNewMessage = (values) => {
+        props.SendMessage(values.NewMessageBody)
     }
 
-    let OnNewMessageChange = (e) => {
-        let body = e.target.value;
-        props.UpdateNewMessageBody(body);
-    }
 
-    
 
     return (
         <div className={s.dialogs}>
@@ -35,30 +31,33 @@ const Dialogs = (props) => {
 
             </div>
             <div className={s.messages}>
-                {messagesElements}
-                <textarea onChange={OnNewMessageChange} value={NewMessageBody} />
-                <button onClick={onSendMessageClick}>send</button>
+                <div>{messagesElements}</div>
+                
+                
             </div>
+            
+        <AddmessageformRedux onSubmit={addNewMessage}/>
+                   
         </div>
     )
 }
 
 
 
+const Addformmessage = (props) => {
+    return <form onSubmit={props.handleSubmit}>
+        <div>
+            <Field component={'textarea'} name={'NewMessageBody'} placeholder={'password'}/>
+        </div>
+        <div>
+            <button>send</button>
+        </div>
+    </form>
+}
 
-
-
-
-
-
- // let onSendMessageClick = () => {
-    //     props.Store.dispatch(SendMessageCreator());
-    // }
-
-    // let OnNewMessageChange = (e) => {
-    //     let body = e.target.value;
-    //     props.Store.dispatch(UpdateNewMessageBodyCreator(body))
-    // }
+const AddmessageformRedux = reduxForm({
+    form: 'DialogAddformmessage'
+})(Addformmessage)
 
 
 
