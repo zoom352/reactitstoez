@@ -47,8 +47,8 @@ export const loginThunk = (email, password, rememberMe) => (dispatch) => {
             if (response.data.resultCode === 0) {
                 dispatch(authThunk())
             } else {
-            let action = stopSubmit()
-            dispatch(action)
+            let message = response.data.messages.length > 0 ? response.data.messages[0] : 'error'
+            dispatch(stopSubmit('login', {_error: message}))
             } 
         })
 }

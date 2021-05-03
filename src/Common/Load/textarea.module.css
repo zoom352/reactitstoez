@@ -8,3 +8,8 @@
 {
     color: red;
 }
+
+.formaerror {
+    border: solid red 4px;
+    color: red;
+}

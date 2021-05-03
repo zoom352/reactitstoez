@@ -6,6 +6,7 @@ import { Textarea2 } from '../../Common/Load/textarea';
 import { loginThunk } from '../../Redux/auth-reducer';
 import { maxLengthCreatorLogin, required} from '../../utils/validate/validates';
 import s from './Login.module.css';
+import st from '../../Common/Load/textarea.module.css'
 
 let maxLogin = maxLengthCreatorLogin(50)
 
@@ -27,6 +28,10 @@ const LoginForm = (props) => {
             <Field type={'checkbox'} name={'rememberMe'} component={Textarea2} 
             validate={[required, maxLogin]}/> Remember me
         </div>
+        { props.error && <div className={st.formaerror}>
+            {props.error}
+        </div>
+        }
         <div>
             <button>enter</button>
         </div>

@@ -5,9 +5,7 @@ import Header from './Header';
 
 
 class HeaderContainer extends React.Component {
-    componentDidMount () {
-        this.props.authThunk()
-    }
+    
     render() {
         return(
         <Header {...this.props}/>
@@ -19,5 +17,5 @@ const mapStateToProps = (state) => ({
     isauth: state.auth.isauth,
     login: state.auth.login
 })
-export default connect (mapStateToProps, {authThunk, logoutThunk})(HeaderContainer);
+export default connect (mapStateToProps, { logoutThunk})(HeaderContainer);
 
