@@ -12,8 +12,9 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
-import {authThunk} from './Redux/auth-reducer';
+import {InitialThunk} from './Redux/app-reducer';
 import { compose } from 'redux';
+import Load from './Common/Load/Load';
 
 
 // addmessage={props.addmessage}
@@ -22,10 +23,13 @@ import { compose } from 'redux';
 class App extends React.Component {
 
     componentDidMount () {
-        this.props.authThunk()
+        this.props.InitialThunk()
     }
 
     render() {
+        if(!this.props.initialized) {
+        return <Load/>
+        }
     return (
         <div className='app-wrapper'>
             <HeaderContainer />
@@ -64,5 +68,9 @@ class App extends React.Component {
 }
 }
 
+const mapStateToProps = (state) => ({
+    initialized: state.Initial.initialized
+})
+
 export default compose(withRouter, 
-    connect(null, {authThunk}))(App);
+    connect(mapStateToProps, {InitialThunk}))(App);
