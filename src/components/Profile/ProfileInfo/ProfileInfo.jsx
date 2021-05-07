@@ -2,6 +2,7 @@ import React from 'react';
 import Load from '../../../Common/Load/Load';
 import s from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus';
+import ProfileStatuswithHook from './ProfileStatuswithHook';
 
 const ProfileInfo = (props) => {
     if(!props.profile){
@@ -19,7 +20,7 @@ const ProfileInfo = (props) => {
                 <img src={props.profile.photos.large}/>
                 
                 {props.profile.aboutMe}
-                <ProfileStatus status={props.status} updatestatusThunk={props.updatestatusThunk}/>
+                <ProfileStatuswithHook status={props.status} updatestatusThunk={props.updatestatusThunk}/>
             </div>
         </div>
     )
