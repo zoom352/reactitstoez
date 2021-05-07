@@ -6,6 +6,7 @@ import Load from '../../Common/Load/Load';
 import { usersAPI} from '../../Api/Api';
 import { withAuthRedirect } from '../../Hoc/AuthRedirect';
 import { compose } from 'redux';
+import { currentPageSelect, followinginprogressSelect, isauthSelect, isFetchingSelect, PageSizeSelect, totalUsersCountSelect, userSelect } from '../../Redux/user-select';
 // import load from './../../assets/images/load.svg';
 
 class UsersAPIComponent extends React.Component {
@@ -56,13 +57,13 @@ class UsersAPIComponent extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-       users: state.UsersPage.users,
-       PageSize: state.UsersPage.PageSize,
-       totalUsersCount: state.UsersPage.totalUsersCount,
-       currentPage: state.UsersPage.currentPage,
-       isFetching: state.UsersPage.isFetching,
-       followinginprogress: state.UsersPage.followinginprogress,
-       isauth: state.auth.isauth
+       users: userSelect(state),
+       PageSize: PageSizeSelect(state),
+       totalUsersCount: totalUsersCountSelect(state),
+       currentPage: currentPageSelect(state),
+       isFetching: isFetchingSelect(state),
+       followinginprogress: followinginprogressSelect(state),
+       isauth: isauthSelect(state)
     }
 }
 
