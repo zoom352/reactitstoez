@@ -13,8 +13,6 @@ let Users = (props) => {
         pages.push(i);
     }
 
-
-  
     return (
         <div>
             <div>
@@ -38,6 +36,7 @@ let Users = (props) => {
                                     
                                 : <button disabled={props.followinginprogress.some(id => id === u.id)} onClick={() => {
                                     props.follow(u.id) }}>follow</button>}
+
                         </div>
                     </span>
                     <span>
