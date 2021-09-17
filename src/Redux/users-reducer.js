@@ -14,9 +14,9 @@ let initialState = {
     PageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false,
-    id: null,
-    name: null,
+    isFetching: true,
+    // id: null,
+    // name: null,
     followinginprogress: []
 };
 
@@ -47,7 +47,7 @@ const Usersreducer = (state = initialState, action) => {
             }
 
 
-        case SET_USERS: {
+        case SET_USERS: {//////
             return { ...state, users: action.users }
         }
 

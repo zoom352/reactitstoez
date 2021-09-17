@@ -11,7 +11,7 @@ const Profile = (props) => {
     return (
         <div>
             
-            <ProfileInfo profile={props.profile} status={props.status} updatestatusThunk={props.updatestatusThunk}/>
+            <ProfileInfo saveProfileThunk={props.saveProfileThunk} savePhotoThunk={props.savePhotoThunk} isOwner={props.isOwner} profile={props.profile} status={props.status} updatestatusThunk={props.updatestatusThunk}/>
             <MyPostsContainer />
         </div>
     )

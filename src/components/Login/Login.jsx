@@ -2,34 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { Textarea2 } from '../../Common/Load/textarea';
-import { loginThunk } from '../../Redux/auth-reducer';
+import { createField, Input, Textarea2 } from '../../Common/Load/textarea';
+import { loginThunk, captchaThunk } from '../../Redux/auth-reducer';
 import { maxLengthCreatorLogin, required} from '../../utils/validate/validates';
 import s from './Login.module.css';
 import st from '../../Common/Load/textarea.module.css'
 
-let maxLogin = maxLengthCreatorLogin(50)
+// let maxLogin = maxLengthCreatorLogin(50)
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error, captchaURL}) => {
     return <div className={s.item}>
         <h1>
             Login
-    </h1>
-    <form onSubmit={props.handleSubmit}>
+        </h1>
+    <form onSubmit={handleSubmit}>
         <div>
-            <Field placeholder={'login'} name={'email'} component={Textarea2}
-            validate={[required, maxLogin]}/>
+        {createField("email", "email", [required], Input)}
         </div>
         <div>
-            <Field placeholder={'password'} name={'password'} component={Textarea2}
-            validate={[required, maxLogin]}/>
+        {createField("password", "password", [required], Input, {type: "password"})}
         </div>
         <div>
-            <Field type={'checkbox'} name={'rememberMe'} component={Textarea2} 
-            validate={[required, maxLogin]}/> Remember me
+        {createField(null, "checkbox", [], Input, {type: 'checkbox'})}
         </div>
-        { props.error && <div className={st.formaerror}>
-            {props.error}
+        <div>
+            {captchaURL && <img src={captchaURL}/>}
+            {captchaURL && createField("captcha", "captcha", [required], Input)}
+        </div>
+        {console.log(error) && <div className={st.formaerror}>
+            {error}
         </div>
         }
         <div>
@@ -46,7 +47,7 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        props.loginThunk(formData.email, formData.password, formData.rememberMe)
+        props.loginThunk(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
     if (props.isauth) {
@@ -54,14 +55,15 @@ const Login = (props) => {
     }
 
     return <div className={s.item}>
-    <LoginReduxForm onSubmit={onSubmit}/>
+    <LoginReduxForm onSubmit={onSubmit} captchaURL={props.captchaURL}/>
     </div>
 }
 
 let mapStateToProps = (state) => {
     return {
-    isauth: state.auth.isauth
-}
+    isauth: state.auth.isauth,
+    captchaURL: state.auth.captchaURL
+  }
 }
 
-export default connect(mapStateToProps, {loginThunk}) (Login);
+export default connect(mapStateToProps, {loginThunk, captchaThunk}) (Login);

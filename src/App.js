@@ -4,11 +4,8 @@ import Navbar from './components/Navbar/Navbar';
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter, Route, withRouter } from "react-router-dom";
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
@@ -18,6 +15,10 @@ import Load from './Common/Load/Load';
 import MusicContainer from './components/Music/MusicContainer';
 import { Provider } from 'react-redux';
 import store from "./Redux/redux-store";
+import { Suspense } from 'react';
+import { WithSuspense } from './Hoc/WithSuspence';
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 
 // addmessage={props.addmessage}
@@ -38,13 +39,18 @@ class App extends React.Component {
             <div className='app-wrapper'>
                 <HeaderContainer />
                 <Navbar />
-                <div className='app-wrapper-content'>
-                    <Route path='/dialogs'
-                        render={() => <DialogsContainer />} />
 
+
+                <div className='app-wrapper-content'>
+                
+                    <Route path='/dialogs'
+                        render={WithSuspense(DialogsContainer) } />
+                
                    
+                
                     <Route path='/profile/:userId?'
-                    render={() => <ProfileContainer />} />
+                    render={ WithSuspense(ProfileContainer)} />
+                
 
                     <Route path='/Music'
                         render={() => <MusicContainer />} />

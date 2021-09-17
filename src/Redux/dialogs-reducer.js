@@ -25,8 +25,6 @@ const dialogsreducer = (state = initialState, action) => {
     // let stateCopy;
 
     switch (action.type) {
-        
-            
 
         case SEND_MESSAGE_BODY:
             let body = action.NewMessageBody;

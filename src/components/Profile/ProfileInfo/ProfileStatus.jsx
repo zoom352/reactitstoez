@@ -5,14 +5,14 @@ import s from './ProfileInfo.module.css';
 
 class ProfileStatus extends React.Component {
 
-    statusInputRef = React.createRef();
+    // statusInputRef = React.createRef();
 
     state = {
         editMode: false,
         status: this.props.status
     }
 
-    activatEditMode = () => {
+    activatEditMode = () => {;
         this.setState ( {
             editMode: true
         })

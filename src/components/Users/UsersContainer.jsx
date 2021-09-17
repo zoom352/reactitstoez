@@ -9,11 +9,13 @@ import { compose } from 'redux';
 import { currentPageSelect, followinginprogressSelect, isauthSelect, isFetchingSelect, PageSizeSelect, totalUsersCountSelect, userSelect } from '../../Redux/user-select';
 // import load from './../../assets/images/load.svg';
 
+
+
 class UsersAPIComponent extends React.Component {
     
     componentDidMount() {
-
-        this.props.getUsers(this.props.currentPage, this.props.PageSize);
+        const {currentPage, PageSize} = this.props;
+        this.props.getUsers (currentPage, PageSize);
         
         // this.props.ToggleIsFetching(true)
         // usersAPI.getUser(this.props.currentPage, this.props.PageSize)
@@ -28,7 +30,8 @@ class UsersAPIComponent extends React.Component {
     }
 
     onPageChanged = (pagenumber) => {
-        this.props.getUsers(pagenumber, this.props.PageSize);
+        const {PageSize} = this.props;
+        this.props.getUsers(pagenumber, PageSize);
 
      
     }
@@ -40,7 +43,7 @@ class UsersAPIComponent extends React.Component {
         totalUsersCount = {this.props.totalUsersCount}
         PageSize = {this.props.PageSize}
         currentPage = {this.props.currentPage}
-        // onPageChanged = {this.props.onPageChanged}
+        onPageChanged = {this.props.onPageChanged}
         unfollow = {this.props.unfollow}
         follow = {this.props.follow}
         users = {this.props.users}
@@ -53,8 +56,6 @@ class UsersAPIComponent extends React.Component {
 
 }
 
-
-
 let mapStateToProps = (state) => {
     return {
        users: userSelect(state),
@@ -66,9 +67,6 @@ let mapStateToProps = (state) => {
        isauth: isauthSelect(state)
     }
 }
-
-
-
 
 export default compose(
     connect(mapStateToProps,  {
